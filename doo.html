@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DooShips | Ship Management</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&family=Open+Sans&display=swap" rel="stylesheet">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
+            margin-bottom: 1rem;
+        }
+
+        :root {
+            --navy: #001F3F;
+            --teal: #0074D9;
+            --gold: #FFD700;
+            --light-blue: #E6F0FF; /* New lighter header color */
+        }
+
+        /* Header Styles */
+        .header {
+            background: var(--light-blue); /* Updated to lighter color */
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            max-height: 70px;
+            margin: 0 auto;
+        }
+
+       .logo {
+    color: var(--navy);
+    font-size: 1.8rem;
+    font-family: 'Raleway', sans-serif; /* Use Raleway for the title */
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0rem;
+}
+
+        .logo img {
+            height: 100px; /* Increased logo size */
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--navy); /* Updated to navy for contrast */
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 600; /* Added weight for better visibility */
+        }
+
+        /* Hero Section - Fixed */
+        .hero {
+            background: linear-gradient(135deg, rgba(0,31,63,0.9) 0%, rgba(0,116,217,0.8) 100%),
+                        url('https://images.unsplash.com/photo-1559825481-12a05cc00344?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80') center/cover;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            margin-top: 60px;
+        }
+
+        .hero-content {
+            padding: 2rem;
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Updated Button Style */
+        .cta-button {
+            background: var(--teal);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background: var(--navy);
+        }
+
+         /* Services Section */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .service-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        .service-card {
+            background: white;
+            padding: 2rem;
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .service-card i {
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        /* Expandable Details */
+        .service-details {
+            width: 100%;
+            background: var(--light-blue);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            margin-top: 0.5rem;
+            text-align: justify;
+            display: none;
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease, opacity 0.5s ease;
+        }
+
+        .service-details.active {
+            display: block;
+            opacity: 1;
+            max-height: 500px;
+        }
+
+        /* Differentiators Section - Fixed Layout */
+        .differentiators {
+            display: grid;
+            grid-template-columns: 1fr;
+            background: var(--navy);
+            color: white;
+            text-align: justify;
+
+        }
+
+        @media (min-width: 768px) {
+            .differentiators {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .timeline {
+    background-image: url('pic.jpg'); /* Ensure the image is in the same folder as your HTML file */
+    background-size: cover;
+    background-position: left;
+    min-height: 600px;
+}
+
+
+        .value-props {
+            padding: 4rem 2rem;
+            background: var(--teal);
+        }
+
+        .value-props ul {
+            list-style: none;
+        }
+
+        .value-props li {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .value-props li::before {
+            content: "▹";
+            position: absolute;
+            left: 0;
+            color: var(--gold);
+        }
+
+        /* Contact Section */
+        .contact-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            max-width: 400px;
+            margin: 4rem auto;
+            text-align: center;
+        }
+
+        .contact-card i {
+            margin-right: 0.5rem;
+            color: var(--teal);
+        }
+
+        .contact-card input,
+        .contact-card textarea {
+            width: 100%;
+            padding: 0.8rem;
+            margin: 0.5rem 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .contact-card button {
+            background: var(--teal);
+            color: white;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .contact-card button:hover {
+            background: var(--navy);
+        }
+
+        /* Responsive Fixes */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .differentiators {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">
+                <img src="/Users/chrysostomos/Desktop/doo/Un2.png">
+                <span>DooShips | Ship Management</span>
+            </div>
+            <div class="nav-links">
+            <a href="#services">Services</a>
+            <a href="#aboutus">About Us</a> 
+            <a href="#contact">Contact</a> 
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Next Generation Ship Management</h1>
+            <p>Combining 20+ years of maritime expertise with modern operational excellence</p>
+<button class="cta-button" style="margin-top: 2rem;" onclick="location.href='#contact'">
+    Request Management Proposal
+</button>
+        </div>
+    </section>
+
+    <section class="services-grid" id="services">
+        <!-- Service 1 -->
+        <div class="service-item">
+            <div class="service-card" onclick="toggleDetails('technical')">
+                <i class="fas fa-cogs fa-3x" style="color: var(--teal);"></i>
+                <h3>Technical Management</h3>
+                <p>Click to learn more</p>
+            </div>
+            <div id="technical-details" class="service-details">
+                <p>We provide full technical supervision, including dry dock management and new build supervision. Our team ensures that vessels operate at peak performance through rigorous maintenance and compliance with industry standards.</p>
+            </div>
+        </div>
+
+        <!-- Service 2 -->
+        <div class="service-item">
+            <div class="service-card" onclick="toggleDetails('crew')">
+                <i class="fas fa-users fa-3x" style="color: var(--gold);"></i>
+                <h3>Crew Management</h3>
+                <p>Click to learn more</p>
+            </div>
+            <div id="crew-details" class="service-details">
+                <p>Our crew management services cover recruitment, training, and payroll management, ensuring that vessels are staffed with highly qualified professionals who meet international safety and operational standards.</p>
+            </div>
+        </div>
+
+        <!-- Service 3 -->
+        <div class="service-item">
+            <div class="service-card" onclick="toggleDetails('risk')">
+                <i class="fas fa-shield-alt fa-3x" style="color: var(--navy);"></i>
+                <h3>Risk Management</h3>
+                <p>Click to learn more</p>
+            </div>
+            <div id="risk-details" class="service-details">
+                <p>We offer comprehensive risk management services, including insurance management and loss prevention programs to minimize operational risks and safeguard assets.</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function toggleDetails(service) {
+            var details = document.getElementById(service + "-details");
+
+            // Close all other open sections
+            document.querySelectorAll('.service-details').forEach(section => {
+                if (section !== details) {
+                    section.classList.remove("active");
+                    setTimeout(() => {
+                        section.style.display = "none";
+                    }, 500); // Wait for transition
+                }
+            });
+
+            // Toggle visibility of the clicked section
+            if (details.classList.contains("active")) {
+                details.classList.remove("active");
+                setTimeout(() => {
+                    details.style.display = "none";
+                }, 500); // Allow transition to complete before hiding
+            } else {
+                details.style.display = "block";
+                setTimeout(() => {
+                    details.classList.add("active");
+                }, 10);
+            }
+        }
+    </script>
+
+    <section class="differentiators" id="aboutus">
+        <div class="timeline"></div>
+        <div class="value-props">
+            <h2>About us:</h2>
+            <ul>
+                <li>At DooShips Ship Management, we bring together a team of seasoned maritime professionals with expertise across various disciplines, including fleet operations, marine engineering, quality assurance, commercial management, and ship ownership. Our collective experience enables us to implement industry-leading management strategies tailored to the evolving needs of modern shipping.
+
+Efficiency, safety, and environmental responsibility are at the core of our operations. As an independent entity, we embrace a flexible approach, allowing us to develop customized solutions that align with each client’s specific requirements. </li>            
+</ul>
+
+<h2>Our mission:</h2>
+<ul>
+     <li>
+Our mission is to establish long-term partnerships built on trust, reliability, and shared growth.
+
+We believe in simplicity and efficiency—our processes are designed to be clear, effective, and outcome-focused. With a steadfast commitment to maritime excellence, we uphold the highest operational standards, ensuring that every decision we make reflects our dedication to quality and professionalism.</li>
+                
+            </ul>
+        </div>
+    </section>
+
+    <section class="contact-card" id="contact">
+        <h3>Contact Us</h3>
+        <p><i class="fas fa-envelope"></i> info@dooships.com</p>
+        <form action="https://formspree.io/f/your-form-id" method="POST">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <textarea name="message" rows="4" placeholder="Your Message" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+    </section>
+</body>
+</html>

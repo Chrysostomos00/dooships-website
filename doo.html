@@ -196,11 +196,21 @@
         }
 
         .timeline {
-    background-image: url('pic.jpg'); /* Ensure the image is in the same folder as your HTML file */
-    background-size: cover;
-    background-position: left;
-    min-height: 600px;
+    background-image: url('pic.jpg'); 
+    background-size: contain; /* Ensures the whole image fits */
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 500px; /* Reduce height for better mobile view */
 }
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .timeline {
+        background-size: cover; /* Keeps background visually appealing */
+        min-height: 250px; /* Reduce height on mobile */
+    }
+}
+
 
 
         .value-props {
